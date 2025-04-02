@@ -1,2 +1,3 @@
 # Retro-Bowl
-Retro Bowl with Multiple save file, Kickoffs and more 
+Retro Football game with multiple save file, kickoffs and more. 
+You can either download or host to a static webpage. Have fun
