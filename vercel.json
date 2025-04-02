@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/rb/index.html",
+      "permanent": true
+    }
+  ]
+}
