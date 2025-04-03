@@ -11,6 +11,6 @@ Retro Bowl is a Retro Football game with...
 <br><br>
 -and more. 
 <br><br>
-You can either download it or host to a (static) webpage. Have fun
+You cant play it if you download it so host to a (static) webpage. Have fun
 <br>
 I DID NOT MAKE THIS GAME
