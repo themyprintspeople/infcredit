@@ -29,54 +29,7 @@
     </div>
 
     <!-- Game code -->
-    <script type="text/javascript" src="html5game/RetroBowl.js?WAEAC=1633155445"></script>
-
-    <!-- Safe Auto Infinite Credits Mod -->
-    <script>
-      (function() {
-        function startInfiniteCredits() {
-          var infiniteCreditsEnabled = true;
-
-          function patchCredits() {
-            try {
-              if (typeof _Jm !== "function") return;
-
-              for (var i = 0; i < 200; i++) {
-                try {
-                  var obj = _Jm(0,0,i); // light scan
-                  if (!obj) continue;
-
-                  if ('_on' in obj && '_oO' in obj && '_uA' in obj) {
-                    if (infiniteCreditsEnabled) {
-                      obj._on = 9999;
-                      obj._oO = 9999;
-                      if (typeof _yn === "function") _yn(obj._uA,"op_credits_purchased",9999);
-                    }
-                    return;
-                  }
-                } catch(e){ continue; }
-              }
-            } catch(e){}
-          }
-
-          // Repeat patch every 1000ms
-          setInterval(patchCredits, 1000);
-
-          // Console toggle
-          window.toggleInfiniteCredits = function() {
-            infiniteCreditsEnabled = !infiniteCreditsEnabled;
-            console.log("Infinite credits is now " + (infiniteCreditsEnabled ? "ON" : "OFF"));
-          };
-
-          console.log("Safe Infinite Credits mod activated!");
-        }
-
-        // Delay mod start 3s after window.onload to ensure runtime ready
-        window.addEventListener('load', function() {
-          setTimeout(startInfiniteCredits, 3000);
-        });
-      })();
-    </script>
+    <script type="text/javascript" src="html5game/RetroBowl.js"></script>
 
     <!-- Start GameMaker runtime -->
     <script>
