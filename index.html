@@ -3,19 +3,28 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Bowl</title>
+    <title>Retro Bowl Mod</title>
     <style>
-      body {
-        background: black;
+      /* Make iframe fill the entire viewport */
+      html, body {
         margin: 0;
         padding: 0;
+        height: 100%;
         overflow: hidden;
+        background: black;
+      }
+      iframe {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
       }
     </style>
   </head>
   <body>
-    <iframe src="./rb/index.html" 
-        style="position: fixed; inset: 0; border: none; width: 100%; height: 100%;">
-</iframe>
+    <!-- Load the auto-modded game -->
+    <iframe src="./rb/index.html"></iframe>
   </body>
 </html>
