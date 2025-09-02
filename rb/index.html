@@ -13,6 +13,11 @@
       canvas { image-rendering: optimizeSpeed; -webkit-interpolation-mode: nearest-neighbor; margin: 0; padding: 0; border: 0; }
       :-webkit-full-screen #canvas { width: 100%; height: 100%; }
       div.gm4html5_div_class { margin: 0; padding: 0; border: 0; }
+      div.gm4html5_login { padding: 20px; position: absolute; border: solid 2px #000; background-color: #404040; color: #0f0; border-radius: 15px; box-shadow: #101010 20px 20px 40px; }
+      div.gm4html5_cancel_button { float: right; }
+      div.gm4html5_login_button { float: left; }
+      div.gm4html5_login_header { text-align: center; }
+      :-webkit-full-screen { width: 100%; height: 100%; }
     </style>
   </head>
   <body>
@@ -26,46 +31,59 @@
     <!-- Game code -->
     <script type="text/javascript" src="html5game/RetroBowl.js?WAEAC=1633155445"></script>
 
-    <!-- Infinite Credits Mod -->
+    <!-- Auto Infinite Credits Mod -->
     <script>
-      // Auto infinite credits
-      var infiniteCreditsEnabled = true;
+      (function() {
+        // Wrap original GameMaker_Init
+        var originalInit = window.GameMaker_Init;
 
-      function patchCredits() {
-        try {
-          if (typeof _Jm !== "function") return; // GameMaker runtime not ready
+        window.GameMaker_Init = function() {
+          // Call original initialization
+          originalInit();
 
-          for (var i = 0; i < 500; i++) {
-            for (var dm = 0; dm < 50; dm++) {
-              for (var em = 0; em < 50; em++) {
-                try {
-                  var obj = _Jm(dm, em, i);
-                  if (!obj) continue;
+          console.log("GameMaker runtime ready — starting Infinite Credits mod");
 
-                  if ('_on' in obj && '_oO' in obj && '_uA' in obj) {
-                    if (infiniteCreditsEnabled) {
-                      obj._on = 9999;
-                      obj._oO = 9999;
-                      if (typeof _yn === "function") _yn(obj._uA, "op_credits_purchased", 9999);
-                    }
-                    return; // stop after patching player object
+          var infiniteCreditsEnabled = true;
+
+          function patchCredits() {
+            try {
+              if (typeof _Jm !== "function") return;
+
+              for (var i = 0; i < 500; i++) {
+                for (var dm = 0; dm < 50; dm++) {
+                  for (var em = 0; em < 50; em++) {
+                    try {
+                      var obj = _Jm(dm, em, i);
+                      if (!obj) continue;
+
+                      if ('_on' in obj && '_oO' in obj && '_uA' in obj) {
+                        if (infiniteCreditsEnabled) {
+                          obj._on = 9999;
+                          obj._oO = 9999;
+                          if (typeof _yn === "function") _yn(obj._uA, "op_credits_purchased", 9999);
+                        }
+                        return; // stop after patching player object
+                      }
+                    } catch(e){ continue; }
                   }
-                } catch(e){ continue; }
+                }
               }
-            }
+            } catch(e){}
           }
-        } catch(e){}
-      }
 
-      setInterval(patchCredits, 500);
+          // Repeat patch to handle new games/restarts
+          setInterval(patchCredits, 500);
 
-      // Optional toggle in console
-      window.toggleInfiniteCredits = function() {
-        infiniteCreditsEnabled = !infiniteCreditsEnabled;
-        console.log("Infinite credits is now " + (infiniteCreditsEnabled ? "ON" : "OFF"));
-      };
+          // Optional toggle in console
+          window.toggleInfiniteCredits = function() {
+            infiniteCreditsEnabled = !infiniteCreditsEnabled;
+            console.log("Infinite credits is now " + (infiniteCreditsEnabled ? "ON" : "OFF"));
+          };
+        };
+      })();
     </script>
 
+    <!-- Start GameMaker runtime -->
     <script>
       window.onload = GameMaker_Init;
     </script>
